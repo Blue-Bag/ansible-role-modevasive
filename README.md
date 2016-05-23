@@ -3,6 +3,9 @@ Role Name
 
 Installs and configures the Apache mod_evasive module
 
+Created to support Debian
+Will have wider support soon.
+
 Requirements
 ------------
 
@@ -28,11 +31,16 @@ Including an example of how to use your role (for instance, with variables passe
          - { role: ansible-role-modevasive, tage: mod_evasive }
 
 
-NOtes:
+Notes:
 ----------------
 
 DOSSystemCommand    "sudo /sbin/iptables -A INPUT -s %s -j DROP && sudo /sbin/iptables -D INPUT -s %s -j DROP | at now + 2 hours"
+
 see https://bloke.org/linux/prevent-dosddos-attacks-with-apache-and-mod_evasive/
+
+DOSSystemCommand "/bin/echo hi >> /tmp/out.txt"
+
+https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=603392
 
 License
 -------
