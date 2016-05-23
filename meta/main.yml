@@ -1,0 +1,21 @@
+---
+galaxy_info:
+  author: GBoobyer
+  description:
+  license:
+    - MIT
+  min_ansible_version: 1.8
+  platforms:
+    - name: Ubuntu
+      versions:
+        - precise
+    - name: Debian
+      versions:
+        - Jessie
+    # - name: EL
+    #   versions:
+    #     - 6
+    #     - 7
+  categories:
+    - web
+dependencies: []

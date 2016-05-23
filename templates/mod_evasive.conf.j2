@@ -1,0 +1,14 @@
+# {{ ansible_managed }}
+<IfModule mod_evasive20.c>
+    DOSHashTableSize "{{ me_DOSHashTableSize }}"
+    DOSPageCount "{{ me_DOSPageCount }}"
+    DOSSiteCount "{{ me_DOSSiteCount }}"
+    DOSPageInterval "{{ me_DOSPageInterval }}"
+    DOSSiteInterval "{{ me_DOSSiteInterval }}"
+    DOSBlockingPeriod "{{ me_DOSBlockingPeriod }}"
+    DOSEmailNotify "{{ me_DOSEmailNotify }}"
+    {% if me_syscmd_enabled %}
+    DOSSystemCommand    "{{ me_DOSSystemCommand }}"
+    {% endif %}
+    DOSLogDir  "{{ me_DOSLogDir }}"
+</IfModule>

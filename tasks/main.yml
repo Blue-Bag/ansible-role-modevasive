@@ -1,0 +1,47 @@
+---
+# tasks file for ansible-role-modevasive
+
+
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Default | Check for unsupported target operating system
+  fail:
+    msg: "The operating system of the target machine ({{ inventory_hostname }}) is not currently supported"
+  when: supported_os_family|default(False) == False
+
+# determine apache version
+- include: apache-version.yml
+
+
+- name: Include OS-specific Tasks.
+  include: install_Debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Include OS-specific Tasks.
+  include: install_Redhat.yml
+  when: ansible_os_family == 'RedHat'
+
+
+
+- name: Configure mod_evasive
+  template:
+    src: 'mod_evasive.conf.j2'
+    dest: "{{ apache_mods_available }}/{{ me_config_name }}"
+    mode: 0644
+    owner: root
+    group: root
+  become: true
+  tags: [mod_evasive, mod_evasive_cfg]
+
+  # note we could use a2enconf
+- name: Apache | Link in configuration files
+  file:
+    src: "{{ apache_mods_available }}/{{ item }}"
+    dest: "{{ apache_mods_enabled }}/{{ item }}"
+    state: link
+  with_items:
+    - "{{ me_config_name }}"
+  when: apache_conf_enable_on
+  tags: [mod_evasive, mod_evasive_cfg]
+  become: true

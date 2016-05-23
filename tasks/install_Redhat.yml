@@ -1,0 +1,11 @@
+---
+# not implmented / tested yet
+# see https://www.digitalocean.com/community/tutorials/how-to-protect-against-dos-and-ddos-with-mod_evasive-for-apache-on-centos-7
+- name: RedHat | install mod_evasive.
+  yum:
+    name: "{{ item }}"
+    state: installed
+  #  enablerepo: "{{ apache_enablerepo }}"
+  with_items:
+    - mod_evasive
+  become: true

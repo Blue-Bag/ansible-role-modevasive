@@ -1,0 +1,17 @@
+---
+# defaults file for ansible-role-modevasive
+
+me_config_name: 'evasive.conf'
+
+me_DOSHashTableSize: '3097'
+me_DOSPageCount: '2'
+me_DOSSiteCount: '50'
+me_DOSPageInterval: '1'
+me_DOSSiteInterval: '1'
+me_DOSBlockingPeriod: '60'
+me_DOSEmailNotify: 'root'
+me_DOSLogDir:  "{{ me_daemon_logdir }}"
+
+me_syscmd_enabled: True
+me_DOSSystemCommand: "/bin/echo hi >> /tmp/out.txt"
+

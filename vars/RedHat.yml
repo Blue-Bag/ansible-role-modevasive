@@ -1,0 +1,13 @@
+---
+# apache
+
+supported_os_family: False
+
+apache_daemon: httpd
+apache_server_root: "/etc/httpd"
+
+# mods available is used for config files
+apache_mods_available: "{{ apache_server_root }}/conf.d"
+apache_mods_enabled: "{{ apache_server_root }}/conf.d"
+
+me_daemon_logdir: '/var/log/httpd/'

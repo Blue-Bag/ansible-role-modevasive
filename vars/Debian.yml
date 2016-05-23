@@ -1,0 +1,14 @@
+---
+# apache
+
+supported_os_family: True
+
+
+apache_daemon: apache2
+apache_server_root: "/etc/apache2"
+
+# mods available is used for config files
+apache_mods_available: "/etc/apache2/mods-available"
+apache_mods_enabled: '/etc/apache2/mods-enabled'
+
+me_daemon_logdir: '/var/log/apache2/'
