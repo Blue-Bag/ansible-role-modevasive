@@ -1,0 +1,19 @@
+---
+
+- name: Put up iptables integration script
+  template:
+    src: 'mod_evasive_iptables.sh.j2'
+    dest: "{{ me_iptables_script }}"
+    mode: 0644
+    owner: root
+    group: root
+  become: true
+  tags: [mod_evasive,mod_evasive_cfg,mod_evasive_iptables]
+
+- name: Add Apache user to the passwordless sudoers for specific scripts.
+  lineinfile:
+    dest: /etc/sudoers
+    regexp: '^{{ apache_run_user }}'
+    line: "{{ apache_run_user }} ALL=NOPASSWD: /sbin/iptables *, /usr/bin/at *, {{ me_iptables_script }}"
+    state: present
+    validate: 'visudo -cf %s'

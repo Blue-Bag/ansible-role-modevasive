@@ -1,0 +1,42 @@
+#!/bin/bash
+#set -x
+[ -z $1 ] && (echo "Usage: $0 <sourceip>"; exit 1)
+[ -x /usr/bin/at ] || (echo "Please, install 'at'"; exit 1)
+
+#############
+## OPTIONS
+#
+
+SOURCEIP="$1"
+HOSTNAME=$(/bin/hostname -f)
+BODYMAIL="/tmp/bodymailddos"
+MODEVASIVE_DOSLogDir="{{me_daemon_logdir}}"
+
+FROM="Anti DDOS System <{{ me_DOSEmailNotifyFrom }}>"
+
+# Multiple accounts separated by commas
+TO="{{ me_DOSEmailNotify }}"
+
+# Time-units can be minutes, hours, days, or weeks
+BANNEDTIME="{{ me_ip_bannedtime}}"
+
+#
+##
+############
+
+# Custom mail message
+{
+echo "Massive connections has been detected from this source IP: $SOURCEIP
+
+The system has blocked the IP in the firewall for $BANNEDTIME. If the problem persist you should block that IP permanently.
+
+- Anti DDOS System -"
+} > $BODYMAIL
+
+# sudo ipset add blocked-ips $SOURCEIP
+
+sudo /sbin/iptables -I INPUT -s $SOURCEIP -j DROP
+echo "sudo /sbin/iptables -D INPUT -s $SOURCEIP -j DROP" | sudo at now + $BANNEDTIME
+cat $BODYMAIL | /usr/bin/mail -a "$FROM" -s "DDOS Attack Detected - $HOSTNAME" $TO
+rm -f "$MODEVASIVE_DOSLogDir/dos-$SOURCEIP"
+
