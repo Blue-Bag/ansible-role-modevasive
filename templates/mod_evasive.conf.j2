@@ -7,8 +7,14 @@
     DOSSiteInterval "{{ me_DOSSiteInterval }}"
     DOSBlockingPeriod "{{ me_DOSBlockingPeriod }}"
     DOSEmailNotify "{{ me_DOSEmailNotify }}"
-    {% if me_syscmd_enabled %}
-    DOSSystemCommand    "{{ me_DOSSystemCommand }}"
+    {% if me_syscmd_enabled and not me_iptables_ban %}
+    DOSSystemCommand "{{ me_DOSSystemCommand }}"
+    {% endif %}
+    {% if me_iptables_ban and not me_syscmd_enabled %}
+    DOSSystemCommand "sudo {{ me_iptables_script }} %s"
     {% endif %}
     DOSLogDir  "{{ me_DOSLogDir }}"
+{% for ip in me_whitelist_ips %}
+    DOSWhitelist {{ip}}
+{% endfor %}
 </IfModule>
