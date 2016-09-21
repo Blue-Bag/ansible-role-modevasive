@@ -45,3 +45,19 @@
   when: apache_conf_enable_on
   tags: [mod_evasive, mod_evasive_cfg]
   become: true
+
+- name: ensure log directory exists and is writeable by webserver
+  file:
+    path: "{{ me_daemon_logdir }}"
+    state: directory
+    owner: "{{ apache_run_user }}"
+    group: "{{ apache_run_group }}"
+    mode: 0775
+    recurse: no
+  become: true
+  tags: [mod_evasive, mod_evasive_cfg]
+
+- name: Include IP Tables-specific Tasks.
+  include: config_iptables.yml
+  when: me_iptables_ban
+
