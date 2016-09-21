@@ -1,6 +1,8 @@
 ---
 # defaults file for ansible-role-modevasive
 
+me_daemon_logdir: '/var/log/mod_evasive/'
+
 me_config_name: 'evasive.conf'
 
 me_DOSHashTableSize: '3097'
@@ -8,10 +10,22 @@ me_DOSPageCount: '2'
 me_DOSSiteCount: '50'
 me_DOSPageInterval: '1'
 me_DOSSiteInterval: '1'
-me_DOSBlockingPeriod: '60'
+me_DOSBlockingPeriod: '300'
 me_DOSEmailNotify: 'root'
 me_DOSLogDir:  "{{ me_daemon_logdir }}"
 
-me_syscmd_enabled: True
+me_syscmd_enabled: False
 me_DOSSystemCommand: "/bin/echo hi >> /tmp/out.txt"
 
+me_whitelist_ips:
+  - 127.0
+
+apache_run_user: "www-data"
+apache_run_group: "www-data"
+
+# can't get this to run (works from cli but not as evasive command)
+# see http://serverfault.com/questions/457867/mod-evasive-dossystemcommand-not-working
+me_iptables_ban: False
+me_iptables_script: '/usr/local/bin/ddos_system.sh'
+me_ip_bannedtime: '5 minutes'
+me_DOSEmailNotifyFrom: 'ddos@yourfromdomain.foo'
