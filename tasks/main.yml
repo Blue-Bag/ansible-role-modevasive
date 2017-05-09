@@ -4,23 +4,27 @@
 
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
+  tags: [mod_evasive]
 
 - name: Default | Check for unsupported target operating system
   fail:
     msg: "The operating system of the target machine ({{ inventory_hostname }}) is not currently supported"
   when: supported_os_family|default(False) == False
+  tags: [mod_evasive]
 
 # determine apache version
 - include: apache-version.yml
-
+  check_mode: no
 
 - name: Include OS-specific Tasks.
   include: install_Debian.yml
   when: ansible_os_family == 'Debian'
+  tags: [mod_evasive]
 
 - name: Include OS-specific Tasks.
   include: install_Redhat.yml
   when: ansible_os_family == 'RedHat'
+  tags: [mod_evasive]
 
 
 
@@ -60,4 +64,4 @@
 - name: Include IP Tables-specific Tasks.
   include: config_iptables.yml
   when: me_iptables_ban
-
+  tags: [mod_evasive]
