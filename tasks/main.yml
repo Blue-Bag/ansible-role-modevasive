@@ -4,7 +4,7 @@
 
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
-  tags: [mod_evasive]
+  tags: [mod_evasive,mod_evasive_cfg]
 
 - name: Default | Check for unsupported target operating system
   fail:
@@ -14,7 +14,7 @@
 
 # determine apache version
 - include: apache-version.yml
-  check_mode: no
+  tags: [mod_evasive,mod_evasive_cfg]
 
 - name: Include OS-specific Tasks.
   include: install_Debian.yml
@@ -36,7 +36,7 @@
     owner: root
     group: root
   become: true
-  tags: [mod_evasive, mod_evasive_cfg]
+  tags: [mod_evasive,mod_evasive_cfg]
 
   # note we could use a2enconf
 - name: Apache | Link in configuration files
@@ -47,7 +47,7 @@
   with_items:
     - "{{ me_config_name }}"
   when: apache_conf_enable_on
-  tags: [mod_evasive, mod_evasive_cfg]
+  tags: [mod_evasive,mod_evasive_cfg]
   become: true
 
 - name: ensure log directory exists and is writeable by webserver

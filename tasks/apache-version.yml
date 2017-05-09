@@ -11,9 +11,9 @@
   set_fact:
     apache_version: "{{ _apache_version.stdout.split()[2].split('/')[1] }}"
 
-- include_vars: apache-22.yml
+- include_vars: 'apache_22.yml'
   when: "apache_version.split('.')[1] == '2'"
 
-- include_vars: apache-24.yml
+- include_vars: 'apache_24.yml'
   when: "apache_version.split('.')[1] == '4'"
 
