@@ -16,4 +16,5 @@
   with_items:
     - evasive
   notify: restart apache
+  ignore_errors: yes
   tags: [mod_evasive]
