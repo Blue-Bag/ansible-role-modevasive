@@ -3,7 +3,7 @@
 - name: Apache Security | Ensure packages (Debian).
   apt:
     name: "{{ item }}"
-    state: installed
+    state: present
   with_items:
     - libapache2-mod-evasive
   notify: restart apache
