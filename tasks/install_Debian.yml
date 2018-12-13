@@ -2,19 +2,15 @@
 
 - name: Apache Security | Ensure packages (Debian).
   apt:
-    name: "{{ item }}"
+    name: ['libapache2-mod-evasive']
     state: present
-  with_items:
-    - libapache2-mod-evasive
   notify: restart apache
   tags: [mod_evasive]
 
 - name: Apache Security | Enable Apache mods.
   apache2_module:
     state: present
-    name: "{{ item }}"
-  with_items:
-    - evasive
+    name: ['evasive']
   notify: restart apache
   ignore_errors: yes
   tags: [mod_evasive]
