@@ -14,7 +14,7 @@
     DOSSystemCommand "sudo {{ me_iptables_script }} %s"
     {% endif %}
     DOSLogDir  "{{ me_DOSLogDir }}"
-{% for ip in me_whitelist_ips %}
+{% for ip in me_allowlist_ips %}
     DOSWhitelist {{ip}}
 {% endfor %}
 </IfModule>
