@@ -15,6 +15,6 @@
     {% endif %}
     DOSLogDir  "{{ me_DOSLogDir }}"
 {% for ip in me_allowlist_ips %}
-    DOSWhitelist {{ip}}
+    DOSWhitelist {{ ip }}
 {% endfor %}
 </IfModule>
