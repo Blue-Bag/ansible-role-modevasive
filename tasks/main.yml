@@ -13,16 +13,16 @@
   tags: [mod_evasive]
 
 # determine apache version
-- include: apache-version.yml
+- include_tasks: apache-version.yml
   tags: [mod_evasive,mod_evasive_cfg]
 
 - name: Include OS-specific Tasks.
-  include: install_Debian.yml
+  include_tasks: install_Debian.yml
   when: ansible_os_family == 'Debian'
   tags: [mod_evasive]
 
 - name: Include OS-specific Tasks.
-  include: install_Redhat.yml
+  include_tasks: install_Redhat.yml
   when: ansible_os_family == 'RedHat'
   tags: [mod_evasive]
 
@@ -62,6 +62,6 @@
   tags: [mod_evasive, mod_evasive_cfg]
 
 - name: Include IP Tables-specific Tasks.
-  include: config_iptables.yml
+  include_tasks: config_iptables.yml
   when: me_iptables_ban
   tags: [mod_evasive]
